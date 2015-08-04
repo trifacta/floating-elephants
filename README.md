@@ -3,7 +3,7 @@
 [Docker](https://www.docker.com/) containers for [Hadoop](https://hadoop.apache.org/).
 
 <p align="center">
-<img src="img/floating-elephants.png" width="200" height="314" alt="Elephant held by coloured balloons">
+<img src="img/floating-elephants.png" width="300" height="363" alt="Elephant held by coloured balloons">
 </p>
 
 Easily reproduce a multi-node Hadoop cluster on a local machine.
