@@ -91,7 +91,7 @@ docker-compose scale clusternode=5
 ## Supported Hadoop Distributions
 
 Vendor | Distro | Directory
--------|-------------------
+------- | ---------- | --------
 Cloudera | CDH 5 | `cloudera/cdh5`
 Hortonworks | HDP 2 | `hortonworks/hdp2`
 
