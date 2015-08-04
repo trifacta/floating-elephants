@@ -1,0 +1,64 @@
+<?xml version="1.0"?>
+<!--
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+<?xml-stylesheet type="text/xsl" href="configuration.xsl"?>
+
+<configuration>
+  <!-- Needs to exist on the namenode -->
+  <property>
+    <name>dfs.namenode.name.dir</name>
+    <value>file:///var/lib/hadoop-hdfs/cache/hdfs/dfs/name</value>
+  </property>
+
+  <!-- Needs to exist on the namenode -->
+  <property>
+    <name>dfs.datanode.data.dir</name>
+    <value>file:///var/lib/hadoop-hdfs/cache/hdfs/dfs/data</value>
+  </property>
+
+  <!-- Set the WebHDFS address -->
+  <property>
+    <name>dfs.namenode.http-address</name>
+    <value>hdfs-namenode.dockerdomain:50070</value>
+    <description>
+      The address and the base port on which the dfs NameNode Web UI will listen.
+    </description>
+  </property>
+
+  <!-- Enable WebHDFS -->
+  <property>
+    <name>dfs.webhdfs.enabled</name>
+    <value>true</value>
+  </property>
+
+  <property>
+    <name>dfs.permissions.superusergroup</name>
+    <value>hadoop</value>
+  </property>
+
+  <!-- Set replication to 1 so that you can use one clusternode -->
+  <property>
+    <name>dfs.replication</name>
+    <value>1</value>
+  </property>
+
+  <!-- Support appending to files -->
+  <property>
+    <name>dfs.support.append</name>
+    <value>true</value>
+  </property>
+</configuration>

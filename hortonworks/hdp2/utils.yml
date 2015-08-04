@@ -1,0 +1,8 @@
+hdfs:
+  build: base
+  volumes:
+    - conf.docker_cluster:/etc/hadoop/conf:ro
+  user: hdfs
+  entrypoint:
+    - "hdfs"
+  dns: 172.17.42.1
