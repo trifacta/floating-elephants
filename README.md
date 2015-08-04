@@ -25,9 +25,6 @@ cd hortonworks/hdp2
 Build the images for the distribution:
 
 ```
-cd base
-./build.sh           # Builds an image with common components
-cd ..
 docker-compose build
 ```
 
