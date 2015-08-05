@@ -6,7 +6,7 @@
 <img src="img/floating-elephants.png" width="300" height="363" alt="Elephant held by coloured balloons">
 </p>
 
-Easily reproduce a multi-node Hadoop cluster on a local machine.
+An easy way to reproduce a multi-node Hadoop cluster on a local machine.
 
 ## Requirements
 
@@ -15,7 +15,7 @@ Easily reproduce a multi-node Hadoop cluster on a local machine.
 
 ## Getting Started
 
-Pick one of the available Hadoop distributions, eg.
+Pick one of the available Hadoop distributions:
 
 ```
 cd cloudera/cdh5     # or,
@@ -37,15 +37,15 @@ docker-compose up -d --no-recreate
 
 ## Networking
 
-Hadoop services typically use [DNS](https://wiki.apache.org/hadoop/UnknownHost) to connect with one another. One of the containers is a DNS container that automatically adds a DNS entry for every running container.
+Hadoop services typically use [DNS](https://wiki.apache.org/hadoop/UnknownHost) to connect to each other. One of the containers is a DNS container that automatically adds a DNS entry for every running container.
 
-The hostnames are pre-configured in the Hadoop XML configuration files in `conf.docker_cluster`, and in `docker-compose.yml`. All of these hostnames end with `.dockerdomain`.
+The hostnames are pre-configured in the Hadoop XML configuration files in `conf.docker_cluster` and `docker-compose.yml`. All of these hostnames end with `.dockerdomain`.
 
-To connect to the containers from the host machine using these hostnames, you'll need to add DNS and routing table entries to your host.
+To connect to the containers from the host machine using these hostnames, you must add DNS and routing table entries to your host.
 
 ### OS X
 
-Assuming you're using [`boot2docker`](http://boot2docker.io/):
+If you're using [`boot2docker`](http://boot2docker.io/):
 
 ```
 export DOCKER_HOST_IP=$(boot2docker ip)
@@ -54,13 +54,13 @@ echo "nameserver $DOCKER_HOST_IP" | sudo tee /etc/resolver/dockerdomain
 sudo route -n add -net 172.17.0.0 $DOCKER_HOST_IP
 ```
 
-If you're using [`docker-machine`](https://docs.docker.com/machine/) instead, replace the first line with
+If you're using [`docker-machine`](https://docs.docker.com/machine/), replace the first line with the following:
 
 ```
 export DOCKER_HOST_IP=$(docker-machine ip $DOCKER_MACHINE_NAME)
 ```
 
-To remove these settings at a later point, run
+To remove these settings at a later point, run the following:
 
 ```
 sudo rm /etc/resolver/dockerdomain
@@ -79,7 +79,7 @@ MapReduce History Server | http://mapreduce-history.dockerdomain:19888/
 
 ## Multiple worker nodes
 
-You can scale the number of "clusternodes" - nodes that run an HDFS Datanode and a YARN Node Manager. For example, to run 5 such nodes:
+You can scale the number of "clusternodes", which are nodes that run an HDFS Datanode and a YARN Node Manager. For example, to run 5 clusternodes:
 
 ```
 docker-compose scale clusternode=5
@@ -94,7 +94,7 @@ Hortonworks | HDP 2 | `hortonworks/hdp2`
 
 ## Roadmap
 
-In no particular order,
+In no particular order:
 
 * Kerberos
 * High Availability
@@ -107,7 +107,7 @@ In no particular order,
 * Jeremy Mailen, architectural & ideological support
 * Alexander Vaughn, the awesome project logo
 * Vihang Mehta, various contributions
-* Many more Trifactans who tried it out, contributing feedback & moral support
+* Many more Trifactans who tried it out and contributed feedback & moral support
 
 <p align="center">
 <a href="http://www.trifacta.com">
