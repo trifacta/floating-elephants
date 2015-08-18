@@ -19,26 +19,26 @@ hdfsnamenode:
   build: hdfs-namenode
   hostname: hdfs-namenode.dockerdomain
   volumes:
-    - conf.docker_cluster:/etc/hadoop/conf.docker_cluster:ro
+    - ./conf.docker_cluster:/etc/hadoop/conf.docker_cluster:ro
   dns: 172.17.42.1
 
 yarnresourcemanager:
   build: yarn-resource-manager
   hostname: yarn-resource-manager.dockerdomain
   volumes:
-    - conf.docker_cluster:/etc/hadoop/conf.docker_cluster:ro
+    - ./conf.docker_cluster:/etc/hadoop/conf.docker_cluster:ro
   dns: 172.17.42.1
 
 mapreducehistory:
   build: mapreduce-history
   hostname: mapreduce-history.dockerdomain
   volumes:
-    - conf.docker_cluster:/etc/hadoop/conf.docker_cluster:ro
+    - ./conf.docker_cluster:/etc/hadoop/conf.docker_cluster:ro
   dns: 172.17.42.1
 
 clusternode:
   build: cluster-node
   domainname: dockerdomain
   volumes:
-    - conf.docker_cluster:/etc/hadoop/conf.docker_cluster:ro
+    - ./conf.docker_cluster:/etc/hadoop/conf.docker_cluster:ro
   dns: 172.17.42.1
