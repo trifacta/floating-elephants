@@ -42,3 +42,28 @@ clusternode:
   volumes:
     - ./conf.docker_cluster:/etc/hadoop/conf.docker_cluster:ro
   dns: 172.17.42.1
+
+hiveserver:
+  build: hive-server
+  hostname: hive-server.dockerdomain
+  volumes:
+    - ./conf.docker_cluster:/etc/hadoop/conf.docker_cluster:ro
+  dns: 172.17.42.1
+
+hivemysql:
+  image: mysql:latest
+  hostname: mysql-hive-metastore.dockerdomain
+  environment:
+    MYSQL_ROOT_PASSWORD: floating
+    MYSQL_DATABASE: metastore
+    MYSQL_USER: hive
+    MYSQL_PASSWORD: elephants
+
+hivemetastore:
+  build: hive-metastore
+  hostname: hive-metastore.dockerdomain
+  volumes:
+    - ./conf.docker_cluster:/etc/hadoop/conf.docker_cluster:ro
+  links:
+    - hivemysql
+  dns: 172.17.42.1
