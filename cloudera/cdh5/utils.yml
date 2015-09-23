@@ -1,7 +1,7 @@
 hdfs:
   build: base
   volumes:
-    - conf.docker_cluster:/etc/hadoop/conf.docker_cluster:ro
+    - ./conf.docker_cluster:/etc/hadoop/conf.docker_cluster:ro
   user: hdfs
   entrypoint:
     - "hdfs"

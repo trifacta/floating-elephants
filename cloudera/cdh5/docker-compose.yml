@@ -67,3 +67,11 @@ hivemetastore:
   links:
     - hivemysql
   dns: 172.17.42.1
+
+hue:
+  build: hue
+  hostname: hue.dockerdomain
+  volumes:
+    - ./conf.docker_cluster:/etc/hadoop/conf.docker_cluster:ro
+    - ./conf.hue:/etc/hue/conf:ro
+  dns: 172.17.42.1
