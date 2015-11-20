@@ -45,11 +45,13 @@ To connect to the containers from the host machine using these hostnames, you mu
 
 ### OS X
 
+We use the [resolver(5)](https://developer.apple.com/library/mac/documentation/Darwin/Reference/ManPages/man5/resolver.5.html) mechanism built into OS X to resolve DNS addresses correctly via the /etc/resolver directory which you may need to create.
 If you're using [`boot2docker`](http://boot2docker.io/):
 
 ```
 export DOCKER_HOST_IP=$(boot2docker ip)
 
+sudo mkdir /etc/resolver
 echo "nameserver $DOCKER_HOST_IP" | sudo tee /etc/resolver/dockerdomain
 sudo route -n add -net 172.17.0.0 $DOCKER_HOST_IP
 ```
