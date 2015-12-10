@@ -5,4 +5,4 @@ hdfs:
   user: hdfs
   entrypoint:
     - "hdfs"
-  dns: 172.17.42.1
+  dns: ["172.17.0.1"]

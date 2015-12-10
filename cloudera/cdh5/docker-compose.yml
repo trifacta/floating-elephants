@@ -13,42 +13,42 @@ dns:
 zookeeper:
   build: zookeeper
   hostname: zookeeper.dockerdomain
-  dns: 172.17.42.1
+  dns: ["172.17.0.1"]
 
 hdfsnamenode:
   build: hdfs-namenode
   hostname: hdfs-namenode.dockerdomain
   volumes:
     - ./conf.docker_cluster:/etc/hadoop/conf.docker_cluster:ro
-  dns: 172.17.42.1
+  dns: ["172.17.0.1"]
 
 yarnresourcemanager:
   build: yarn-resource-manager
   hostname: yarn-resource-manager.dockerdomain
   volumes:
     - ./conf.docker_cluster:/etc/hadoop/conf.docker_cluster:ro
-  dns: 172.17.42.1
+  dns: ["172.17.0.1"]
 
 mapreducehistory:
   build: mapreduce-history
   hostname: mapreduce-history.dockerdomain
   volumes:
     - ./conf.docker_cluster:/etc/hadoop/conf.docker_cluster:ro
-  dns: 172.17.42.1
+  dns: ["172.17.0.1"]
 
 clusternode:
   build: cluster-node
   domainname: dockerdomain
   volumes:
     - ./conf.docker_cluster:/etc/hadoop/conf.docker_cluster:ro
-  dns: 172.17.42.1
+  dns: ["172.17.0.1"]
 
 hiveserver:
   build: hive-server
   hostname: hive-server.dockerdomain
   volumes:
     - ./conf.docker_cluster:/etc/hadoop/conf.docker_cluster:ro
-  dns: 172.17.42.1
+  dns: ["172.17.0.1"]
 
 hivemysql:
   image: mysql:latest
@@ -66,7 +66,7 @@ hivemetastore:
     - ./conf.docker_cluster:/etc/hadoop/conf.docker_cluster:ro
   links:
     - hivemysql
-  dns: 172.17.42.1
+  dns: ["172.17.0.1"]
 
 hue:
   build: hue
@@ -74,4 +74,4 @@ hue:
   volumes:
     - ./conf.docker_cluster:/etc/hadoop/conf.docker_cluster:ro
     - ./conf.hue:/etc/hue/conf:ro
-  dns: 172.17.42.1
+  dns: ["172.17.0.1"]
