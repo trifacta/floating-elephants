@@ -1,9 +1,10 @@
-hdfs:
-  build: base
-  volumes:
-    - "./conf.docker_cluster:/etc/hadoop/conf.docker_cluster:ro"
-  user: hdfs
-  entrypoint:
-    - hdfs
-  dns:
-    - "172.17.0.1"
+version: '2'
+
+services:
+  hdfs:
+    build: base
+    volumes:
+      - "./conf.docker_cluster:/etc/hadoop/conf.docker_cluster:ro"
+    user: hdfs
+    entrypoint:
+      - hdfs
