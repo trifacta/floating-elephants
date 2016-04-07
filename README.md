@@ -165,6 +165,6 @@ If you set your `user.name` and `user.email` git configs, you can sign your comm
 
 <p align="center">
 <a href="http://www.trifacta.com">
-<img src="img/trifacta-logo.png" width="320" height="100" alt="Developed by Trifacta"><br />
+<img src="img/trifacta-logo.png" width="544" height="100" alt="Developed by Trifacta"><br />
 </a>
 </p>
