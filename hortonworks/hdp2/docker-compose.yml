@@ -1,49 +1,31 @@
-# Registers all container hostname to ip address mappings
-dns:
-  image: iverberk/docker-spy
-  hostname: dns.dockerdomain
-  environment:
-    DNS_DOMAIN: dockerdomain
-  volumes:
-    - "/var/run/docker.sock:/var/run/docker.sock"
-  ports:
-    - "53:53"
-    - "53:53/udp"
+version: '2'
 
-zookeeper:
-  build: zookeeper
-  hostname: zookeeper.dockerdomain
+services:
   dns:
-    - "172.17.0.1"
+    build: dns
+    ports:
+      - "53:53"
+      - "53:53/udp"
 
-hdfsnamenode:
-  build: hdfs-namenode
-  hostname: hdfs-namenode.dockerdomain
-  volumes:
-    - "./conf.docker_cluster:/etc/hadoop/conf:ro"
-  dns:
-    - "172.17.0.1"
+  zookeeper:
+    build: zookeeper
 
-yarnresourcemanager:
-  build: yarn-resource-manager
-  hostname: yarn-resource-manager.dockerdomain
-  volumes:
-    - "./conf.docker_cluster:/etc/hadoop/conf:ro"
-  dns:
-    - "172.17.0.1"
+  hdfsnamenode:
+    build: hdfs-namenode
+    volumes:
+      - "./conf.docker_cluster:/etc/hadoop/conf:ro"
 
-mapreducehistory:
-  build: mapreduce-history
-  hostname: mapreduce-history.dockerdomain
-  volumes:
-    - "./conf.docker_cluster:/etc/hadoop/conf:ro"
-  dns:
-    - "172.17.0.1"
+  yarnresourcemanager:
+    build: yarn-resource-manager
+    volumes:
+      - "./conf.docker_cluster:/etc/hadoop/conf:ro"
 
-clusternode:
-  build: cluster-node
-  domainname: dockerdomain
-  volumes:
-    - "./conf.docker_cluster:/etc/hadoop/conf:ro"
-  dns:
-    - "172.17.0.1"
+  mapreducehistory:
+    build: mapreduce-history
+    volumes:
+      - "./conf.docker_cluster:/etc/hadoop/conf:ro"
+
+  clusternode:
+    build: cluster-node
+    volumes:
+      - "./conf.docker_cluster:/etc/hadoop/conf:ro"
