@@ -37,22 +37,27 @@ docker-compose up -d --no-recreate
 
 ## Networking
 
-Hadoop services typically use [DNS](https://wiki.apache.org/hadoop/UnknownHost) to connect to each other. One of the containers is a DNS container that automatically adds a DNS entry for every running container.
+Hadoop services typically use [DNS](https://wiki.apache.org/hadoop/UnknownHost) to connect to each other. Docker's inbuilt [networking features](https://docs.docker.com/compose/networking/) are leveraged for the services to talk to each other.
 
-The hostnames are pre-configured in the Hadoop XML configuration files in `conf.docker_cluster` and `docker-compose.yml`. All of these hostnames end with `.dockerdomain`.
+The hostnames are pre-configured in the Hadoop XML configuration files in `conf.docker_cluster` and `docker-compose.yml`. All of these hostnames end with `.cd5_default` or `.hdp2_default`.
+
+Another small container running `dnsmasq` that forwards port 53 acts as the DNS for the host.
 
 To connect to the containers from the host machine using these hostnames, you must add DNS and routing table entries to your host.
 
 ### OS X
 
 We use the [resolver(5)](https://developer.apple.com/library/mac/documentation/Darwin/Reference/ManPages/man5/resolver.5.html) mechanism built into OS X to resolve DNS addresses correctly via the /etc/resolver directory which you may need to create.
+
+The following instructions assume that you are using the cloudera distro. Replace `vdh5_default` with `hdp2_default` if you are using the hortonworks distro.
+
 If you're using [`boot2docker`](http://boot2docker.io/):
 
 ```
 export DOCKER_HOST_IP=$(boot2docker ip)
 
 sudo mkdir /etc/resolver
-echo "nameserver $DOCKER_HOST_IP" | sudo tee /etc/resolver/dockerdomain
+echo "nameserver $DOCKER_HOST_IP" | sudo tee /etc/resolver/cd5_default
 sudo route -n add -net 172.17.0.0 $DOCKER_HOST_IP
 ```
 
@@ -65,7 +70,7 @@ export DOCKER_HOST_IP=$(docker-machine ip $DOCKER_MACHINE_NAME)
 To remove these settings at a later point, run the following:
 
 ```
-sudo rm /etc/resolver/dockerdomain
+sudo rm /etc/resolver/cd5_default
 sudo route -n delete 172.17.0.0
 ```
 
@@ -75,9 +80,9 @@ Visit the Web UIs for the services:
 
 Service | Web UI URL
 --------|-----------
-HDFS Namenode | http://hdfs-namenode.dockerdomain:50070/
-YARN Resource Manager | http://yarn-resource-manager.dockerdomain:8088/
-MapReduce History Server | http://mapreduce-history.dockerdomain:19888/
+HDFS Namenode | http://http://hdfsnamenode.cdh5_default:50070/
+YARN Resource Manager | http://yarnresourcemanager.cdh5_default:8088/
+MapReduce History Server | http://mapreducehistory.cdh5_default:19888/
 
 ## Multiple worker nodes
 
