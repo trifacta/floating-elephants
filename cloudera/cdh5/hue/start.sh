@@ -13,4 +13,4 @@ sudo -u hdfs hdfs dfs -chown hue:hadoop /user/hue
 
 service hue start
 
-tail -f `find /var/log -name *.log -name *.out`
+tail -f `find /var/log -name *.log -or -name *.out`

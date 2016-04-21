@@ -19,4 +19,4 @@ sudo -u hdfs hadoop fs -chown yarn:mapred /var/log/hadoop-yarn
 
 service hadoop-yarn-resourcemanager start
 
-tail -f `find /var/log -name *.log -name *.out`
+tail -f `find /var/log -name *.log -or -name *.out`

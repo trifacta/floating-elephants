@@ -18,4 +18,4 @@ done
 
 service hive-metastore start
 
-tail -f `find /var/log -name *.log -name *.out`
+tail -f `find /var/log -name *.log -or -name *.out`
