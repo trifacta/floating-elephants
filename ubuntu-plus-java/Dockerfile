@@ -3,7 +3,8 @@
 FROM ubuntu:trusty
 MAINTAINER Trifacta, Inc.
 
-RUN apt-get install -y software-properties-common wget
+RUN apt-get update -y && \
+    apt-get install -y software-properties-common wget
 
 # Install Oracle Java 7, as per instructions from:
 # http://www.webupd8.org/2012/01/install-oracle-java-jdk-7-in-ubuntu-via.html
