@@ -33,7 +33,7 @@
   <!-- Set the WebHDFS address -->
   <property>
     <name>dfs.namenode.http-address</name>
-    <value>hdfs-namenode.dockerdomain:50070</value>
+    <value>hdfsnamenode.hdp2-lagoon:50070</value>
     <description>
       The address and the base port on which the dfs NameNode Web UI will listen.
     </description>

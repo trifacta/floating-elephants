@@ -13,4 +13,4 @@ done
 sudo -u hdfs hdfs dfs -mkdir /tmp
 sudo -u hdfs hadoop fs -chmod -R 1777 /tmp
 
-tail -f `find /var/log -name *.log -name *.out`
+tail -f `find /var/log -name *.log -or -name *.out`

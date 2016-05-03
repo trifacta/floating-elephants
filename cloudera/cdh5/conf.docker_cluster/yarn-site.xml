@@ -25,7 +25,7 @@
 
   <property>
     <name>yarn.resourcemanager.hostname</name>
-    <value>yarn-resource-manager.dockerdomain</value>
+    <value>yarnresourcemanager.cdh5-lagoon</value>
   </property>
 
   <!-- Filled in by the above property

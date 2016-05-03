@@ -15,17 +15,24 @@ An easy way to reproduce a multi-node Hadoop cluster on a local machine.
 
 ## Getting Started
 
-Pick one of the available Hadoop distributions:
+Pick one of the available Hadoop distributions. For example,
 
 ```
-cd cloudera/cdh5     # or,
-cd hortonworks/hdp2
+cd cloudera/cdh5
 ```
 
 Build the images for the distribution:
 
 ```
 docker-compose build
+```
+
+Create a Docker network:
+
+```
+docker network create -d bridge \
+  --subnet=172.20.0.0/16 --gateway 172.20.0.1 --ip-range=172.20.0.0/16 \
+  cdh5-lagoon
 ```
 
 Start the containers:
@@ -37,36 +44,50 @@ docker-compose up -d --no-recreate
 
 ## Networking
 
-Hadoop services typically use [DNS](https://wiki.apache.org/hadoop/UnknownHost) to connect to each other. One of the containers is a DNS container that automatically adds a DNS entry for every running container.
+Hadoop services typically use [DNS](https://wiki.apache.org/hadoop/UnknownHost) to connect to each other. Docker's inbuilt [networking features](https://docs.docker.com/compose/networking/) are set up for the services to talk to each other. For example, to create the `hdp2-lagoon` network run
 
-The hostnames are pre-configured in the Hadoop XML configuration files in `conf.docker_cluster` and `docker-compose.yml`. All of these hostnames end with `.dockerdomain`.
+```
+docker network create -d bridge \
+  --subnet=172.21.0.0/16 --gateway 172.21.0.1 --ip-range=172.21.0.0/16 \
+  hdp2-lagoon
+```
+
+We could use `docker-compose` to create networks automatically in the future. Currently the tool will generate domain names with an underscore character, which form invalid URIs.
+
+The hostnames are pre-configured in the Hadoop XML configuration files in `conf.docker_cluster/*.xml` and `docker-compose.yml`. All of these hostnames end with `.cd5-lagoon` or `.hdp2-lagoon`.
+
+Another small container running `dnsmasq` that forwards port 53 acts as the DNS for the host.
 
 To connect to the containers from the host machine using these hostnames, you must add DNS and routing table entries to your host.
+
 
 ### OS X
 
 We use the [resolver(5)](https://developer.apple.com/library/mac/documentation/Darwin/Reference/ManPages/man5/resolver.5.html) mechanism built into OS X to resolve DNS addresses correctly via the /etc/resolver directory which you may need to create.
+
+The following instructions assume that you are using the cloudera distro. Replace `cdh5-lagoon` with `hdp2-lagoon` if you are using the hortonworks distro.
+
+If you're using [`docker-machine`](https://docs.docker.com/machine/),
+
+```
+export DOCKER_HOST_IP=$(docker-machine ip $DOCKER_MACHINE_NAME)
+
+sudo mkdir /etc/resolver
+echo "nameserver $DOCKER_HOST_IP" | sudo tee /etc/resolver/cd5_default
+sudo route -n add -net 172.20.0.0 $DOCKER_HOST_IP
+```
+
 If you're using [`boot2docker`](http://boot2docker.io/):
 
 ```
 export DOCKER_HOST_IP=$(boot2docker ip)
-
-sudo mkdir /etc/resolver
-echo "nameserver $DOCKER_HOST_IP" | sudo tee /etc/resolver/dockerdomain
-sudo route -n add -net 172.17.0.0 $DOCKER_HOST_IP
-```
-
-If you're using [`docker-machine`](https://docs.docker.com/machine/), replace the first line with the following:
-
-```
-export DOCKER_HOST_IP=$(docker-machine ip $DOCKER_MACHINE_NAME)
 ```
 
 To remove these settings at a later point, run the following:
 
 ```
-sudo rm /etc/resolver/dockerdomain
-sudo route -n delete 172.17.0.0
+sudo rm /etc/resolver/cd5-lagoon
+sudo route -n delete 172.20.0.0
 ```
 
 ## Verify your cluster is running
@@ -75,9 +96,9 @@ Visit the Web UIs for the services:
 
 Service | Web UI URL
 --------|-----------
-HDFS Namenode | http://hdfs-namenode.dockerdomain:50070/
-YARN Resource Manager | http://yarn-resource-manager.dockerdomain:8088/
-MapReduce History Server | http://mapreduce-history.dockerdomain:19888/
+HDFS Namenode | http://http://hdfsnamenode.cdh5-lagoon:50070/
+YARN Resource Manager | http://yarnresourcemanager.cdh5-lagoon:8088/
+MapReduce History Server | http://mapreducehistory.cdh5-lagoon:19888/
 
 ## Multiple worker nodes
 

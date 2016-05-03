@@ -8,7 +8,7 @@ do
 done
 
 # Wait for resource manager to come alive on its standard port
-until nc -z -w5 yarn-resource-manager.dockerdomain 8032
+until nc -z -w5 yarnresourcemanager.cdh5-lagoon 8032
 do
     echo "Waiting for YARN ResourceManager to become available"
     sleep 1
@@ -16,4 +16,4 @@ done
 
 service hadoop-mapreduce-historyserver start
 
-tail -f `find /var/log -name *.log -name *.out`
+tail -f `find /var/log -name *.log -or -name *.out`

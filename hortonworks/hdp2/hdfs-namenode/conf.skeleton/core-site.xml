@@ -1,6 +1,6 @@
 <configuration>
   <property>
    <name>fs.defaultFS</name>
-   <value>hdfs://hdfs-namenode.dockerdomain:8020</value>
+   <value>hdfs://hdfsnamenode.hdp2-lagoon:8020</value>
   </property>
 </configuration>

@@ -10,4 +10,4 @@ done
 service hive-webhcat-server start
 service hive-server2 start
 
-tail -f `find /var/log -name *.log -name *.out`
+tail -f `find /var/log -name *.log -or -name *.out`
