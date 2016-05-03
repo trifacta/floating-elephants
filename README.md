@@ -21,10 +21,10 @@ Pick one of the available Hadoop distributions. For example,
 cd cloudera/cdh5
 ```
 
-Build the images for the distribution:
+Pull the built image for the distribuition
 
 ```
-docker-compose build
+docker pull trifacta/ubuntu-cdh5-base:v3.0.0
 ```
 
 Create a Docker network:
