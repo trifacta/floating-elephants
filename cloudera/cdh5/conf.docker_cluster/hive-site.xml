@@ -20,12 +20,12 @@
 <configuration>
   <property>
     <name>hive.metastore.uris</name>
-    <value>thrift://hivemetastore:9083</value>
+    <value>thrift://hivemetastore.cdh5-lagoon:9083</value>
   </property>
 
   <property>
     <name>javax.jdo.option.ConnectionURL</name>
-    <value>jdbc:mysql://hivemysql:3306/metastore</value>
+    <value>jdbc:mysql://hivemysql.cdh5-lagoon:3306/metastore</value>
     <description>the URL of the MySQL database</description>
   </property>
 

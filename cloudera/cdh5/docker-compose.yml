@@ -3,37 +3,53 @@ version: '2'
 services:
   dns:
     build: dns
+    hostname: dns
     ports:
       - "53:53"
       - "53:53/udp"
+    networks:
+      - lagoon
 
   zookeeper:
     build: zookeeper
+    hostname: zookeeper
+    networks:
+      - lagoon
 
   hdfsnamenode:
     build: hdfs-namenode
     volumes:
       - "./conf.docker_cluster:/etc/hadoop/conf.docker_cluster:ro"
+    networks:
+      - lagoon
 
   yarnresourcemanager:
     build: yarn-resource-manager
     volumes:
       - "./conf.docker_cluster:/etc/hadoop/conf.docker_cluster:ro"
+    networks:
+      - lagoon
 
   mapreducehistory:
     build: mapreduce-history
     volumes:
       - "./conf.docker_cluster:/etc/hadoop/conf.docker_cluster:ro"
+    networks:
+      - lagoon
 
   clusternode:
     build: cluster-node
     volumes:
       - "./conf.docker_cluster:/etc/hadoop/conf.docker_cluster:ro"
+    networks:
+      - lagoon
 
   hiveserver:
     build: hive-server
     volumes:
       - "./conf.docker_cluster:/etc/hadoop/conf.docker_cluster:ro"
+    networks:
+      - lagoon
 
   hivemysql:
     image: "mysql:latest"
@@ -42,14 +58,25 @@ services:
       MYSQL_DATABASE: metastore
       MYSQL_USER: hive
       MYSQL_PASSWORD: elephants
+    networks:
+      - lagoon
 
   hivemetastore:
     build: hive-metastore
     volumes:
       - "./conf.docker_cluster:/etc/hadoop/conf.docker_cluster:ro"
+    networks:
+      - lagoon
 
   hue:
     build: hue
     volumes:
       - "./conf.docker_cluster:/etc/hadoop/conf.docker_cluster:ro"
       - "./conf.hue:/etc/hue/conf:ro"
+    networks:
+      - lagoon
+
+networks:
+  lagoon:
+    external:
+      name: cdh5-lagoon
