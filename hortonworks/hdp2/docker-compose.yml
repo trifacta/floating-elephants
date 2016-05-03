@@ -6,26 +6,43 @@ services:
     ports:
       - "53:53"
       - "53:53/udp"
+    networks:
+      - lagoon
 
   zookeeper:
     build: zookeeper
+    networks:
+      - lagoon
 
   hdfsnamenode:
     build: hdfs-namenode
     volumes:
       - "./conf.docker_cluster:/etc/hadoop/conf:ro"
+    networks:
+      - lagoon
 
   yarnresourcemanager:
     build: yarn-resource-manager
     volumes:
       - "./conf.docker_cluster:/etc/hadoop/conf:ro"
+    networks:
+      - lagoon
 
   mapreducehistory:
     build: mapreduce-history
     volumes:
       - "./conf.docker_cluster:/etc/hadoop/conf:ro"
+    networks:
+      - lagoon
 
   clusternode:
     build: cluster-node
     volumes:
       - "./conf.docker_cluster:/etc/hadoop/conf:ro"
+    networks:
+      - lagoon
+
+networks:
+  lagoon:
+    external:
+      name: hdp2-lagoon

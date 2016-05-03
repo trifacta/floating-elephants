@@ -44,13 +44,22 @@ docker-compose up -d --no-recreate
 
 ## Networking
 
-Hadoop services typically use [DNS](https://wiki.apache.org/hadoop/UnknownHost) to connect to each other. Docker's inbuilt [networking features](https://docs.docker.com/compose/networking/) are set up for the services to talk to each other.
+Hadoop services typically use [DNS](https://wiki.apache.org/hadoop/UnknownHost) to connect to each other. Docker's inbuilt [networking features](https://docs.docker.com/compose/networking/) are set up for the services to talk to each other. For example, to create the `hdp2-lagoon` network run
 
-The hostnames are pre-configured in the Hadoop XML configuration files in `conf.docker_cluster` and `docker-compose.yml`. All of these hostnames end with `.cd5-default` or `.hdp2-lagoon`.
+```
+docker network create -d bridge \
+  --subnet=172.21.0.0/16 --gateway 172.21.0.1 --ip-range=172.21.0.0/16 \
+  hdp2-lagoon
+```
+
+We could use `docker-compose` to create networks automatically in the future. Currently the tool will generate domain names with an underscore character, which form invalid URIs.
+
+The hostnames are pre-configured in the Hadoop XML configuration files in `conf.docker_cluster/*.xml` and `docker-compose.yml`. All of these hostnames end with `.cd5-lagoon` or `.hdp2-lagoon`.
 
 Another small container running `dnsmasq` that forwards port 53 acts as the DNS for the host.
 
 To connect to the containers from the host machine using these hostnames, you must add DNS and routing table entries to your host.
+
 
 ### OS X
 
