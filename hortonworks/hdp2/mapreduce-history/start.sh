@@ -8,7 +8,7 @@ do
 done
 
 # Wait for resource manager to come alive on its standard port
-until nc -z -w5 yarnresourcemanager 8032
+until nc -z -w5 yarnresourcemanager.hdp2-lagoon 8032
 do
     echo "Waiting for YARN ResourceManager to become available"
     sleep 1
