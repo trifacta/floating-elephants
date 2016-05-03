@@ -54,7 +54,7 @@ docker network create -d bridge \
 
 We could use `docker-compose` to create networks automatically in the future. Currently the tool will generate domain names with an underscore character, which form invalid URIs.
 
-The hostnames are pre-configured in the Hadoop XML configuration files in `conf.docker_cluster/*.xml` and `docker-compose.yml`. All of these hostnames end with `.cd5-lagoon` or `.hdp2-lagoon`.
+The hostnames are pre-configured in the Hadoop XML configuration files in `conf.docker_cluster/*.xml` and `docker-compose.yml`. All of these hostnames end with `.cdh5-lagoon` or `.hdp2-lagoon`.
 
 Another small container running `dnsmasq` that forwards port 53 acts as the DNS for the host.
 
@@ -73,7 +73,7 @@ If you're using [`docker-machine`](https://docs.docker.com/machine/),
 export DOCKER_HOST_IP=$(docker-machine ip $DOCKER_MACHINE_NAME)
 
 sudo mkdir /etc/resolver
-echo "nameserver $DOCKER_HOST_IP" | sudo tee /etc/resolver/cd5_default
+echo "nameserver $DOCKER_HOST_IP" | sudo tee /etc/resolver/cdh5-lagoon
 sudo route -n add -net 172.20.0.0 $DOCKER_HOST_IP
 ```
 
@@ -86,7 +86,7 @@ export DOCKER_HOST_IP=$(boot2docker ip)
 To remove these settings at a later point, run the following:
 
 ```
-sudo rm /etc/resolver/cd5-lagoon
+sudo rm /etc/resolver/cdh5-lagoon
 sudo route -n delete 172.20.0.0
 ```
 
