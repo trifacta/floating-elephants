@@ -73,6 +73,6 @@
   <property>
     <name>hive.zookeeper.quorum</name>
     <description>Zookeeper quorum used by Hive's Table Lock Manager</description>
-    <value>zookeeper</value>
+    <value>zookeeper.cdh5-lagoon</value>
   </property>
 </configuration>
