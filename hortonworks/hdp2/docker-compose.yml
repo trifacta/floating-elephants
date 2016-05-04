@@ -37,6 +37,7 @@ services:
 
   clusternode:
     build: cluster-node
+    domainname: hdp2-lagoon
     volumes:
       - "./conf.docker_cluster:/etc/hadoop/conf:ro"
     networks:
