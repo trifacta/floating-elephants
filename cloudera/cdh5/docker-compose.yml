@@ -39,6 +39,7 @@ services:
 
   clusternode:
     build: cluster-node
+    domainname: cdh5-lagoon
     volumes:
       - "./conf.docker_cluster:/etc/hadoop/conf.docker_cluster:ro"
     networks:
