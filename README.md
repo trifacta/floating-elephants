@@ -96,7 +96,7 @@ Visit the Web UIs for the services:
 
 Service | Web UI URL
 --------|-----------
-HDFS Namenode | http://http://hdfsnamenode.cdh5-lagoon:50070/
+HDFS Namenode | http://hdfsnamenode.cdh5-lagoon:50070/
 YARN Resource Manager | http://yarnresourcemanager.cdh5-lagoon:8088/
 MapReduce History Server | http://mapreducehistory.cdh5-lagoon:19888/
 
