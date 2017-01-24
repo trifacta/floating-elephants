@@ -58,7 +58,7 @@
 
   <property>
     <name>yarn.log-aggregation-enable</name>
-    <value>true</value>
+    <value>false</value>
   </property>
 
   <property>
@@ -76,7 +76,13 @@
   <property>
     <description>Where to aggregate logs to.</description>
     <name>yarn.nodemanager.remote-app-log-dir</name>
-    <value>hdfs:/var/log/hadoop-yarn/apps</value>
+    <value>/tmp/logs/hadoop-yarn/apps</value>
+  </property>
+
+  <property>
+    <description>How long to wait before deleting aggregated logs.</description>
+    <name>yarn.log-aggregation.retain-seconds</name>
+    <value>-1</value>
   </property>
 
   <property>
