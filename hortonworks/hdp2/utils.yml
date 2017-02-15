@@ -8,3 +8,10 @@ services:
     user: hdfs
     entrypoint:
       - hdfs
+    networks:
+      - lagoon
+
+networks:
+  lagoon:
+    external:
+      name: hdp2-lagoon
